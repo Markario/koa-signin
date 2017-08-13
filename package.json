@@ -1,0 +1,11 @@
+{
+  "name": "koa-signin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Markario/koa-signin.git",
+  "author": "Mark Zepeda <mark@zepeda.co>",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^7.4.2"
+  }
+}
