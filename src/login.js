@@ -23,10 +23,22 @@ class Login {
 
     this.providers = providers.map(provider => new BoundProvider(provider));
 
+    let loginRoute = provider => `/login/${provider.name}`;
+    let callbackRoute = provider => `/login/${provider.name}/callback`;
+    let descriptorsRoute = () => '/login_descriptors';
+
+    this.providersDescription = this.providers.reduce((descriptors, provider) => {
+      let descriptor = {name: provider.name, login: loginRoute(provider), callback: callbackRoute(provider)};
+      descriptors.push(descriptor);
+      return descriptors;
+    }, []);
+
     this.mount = router => {
+      router.get(descriptorsRoute(), ctx => ctx.response.body = this.providersDescription);
+
       this.providers.forEach(provider => {
-        router.get(`/login/${provider.name}`,          this.login(provider));
-        router.get(`/login/${provider.name}/callback`, this.callback(provider));
+        router.get(loginRoute(provider),    this.login(provider));
+        router.get(callbackRoute(provider), this.callback(provider));
       });
     }
   }
