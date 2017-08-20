@@ -84,10 +84,10 @@ class Login {
 
       let user = await provider.toUser(profile);
       if(!user){
-        let results = await provider.toNewUser(profile);
+        user = await provider.toNewUser(profile);
         console.log(`New user: ${JSON.stringify(user)} from: ${provider.name} profile.`);
       }else{
-        let results = await provider.toUpdatedUser(profile, user);
+        user = await provider.toUpdatedUser(profile, user);
         console.log(`Current User: ${JSON.stringify(user)} updated from ${provider.name} profile.`);
       }
 
